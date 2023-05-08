@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+
 import tdameritrade.auth as td_auth
 import tdameritrade.client as td_client
 import datetime as dt
@@ -20,8 +23,8 @@ start_date = end_date - dt.timedelta(days=1)
 
 # Get the historical prices
 hist_price = TDClient.get_price_history(symbol=symbol, period_type='day',
-                                         start_date=start_date, end_date=end_date,
-                                         frequency_type='minute', frequency=1)
+                                        start_date=start_date, end_date=end_date,
+                                        frequency_type='minute', frequency=1)
 
 # Get the previous day's high price
 prev_high = max(hist_price['high'])
@@ -54,12 +57,12 @@ for strike_price in strike_range:
         quantity = 1
         order_price = option['ask']
         order = TDClient.place_order(ACCOUNT_NUMBER, 'AAPL', quantity, 'BUY_TO_OPEN', 'LIMIT', 'GTC',
-                                      price=order_price,
-                                      order_strategy_type='SINGLE',
-                                      order_leg_collection=[{'instruction': 'BUY_TO_OPEN',
-                                                             'quantity': quantity,
-                                                             'instrument': {'symbol': option_symbol,
-                                                                            'assetType': 'OPTION'}
+                                     price=order_price,
+                                     order_strategy_type='SINGLE',
+                                     order_leg_collection=[{'instruction': 'BUY_TO_OPEN',
+                                                            'quantity': quantity,
+                                                            'instrument': {'symbol': option_symbol,
+                                                                           'assetType': 'OPTION'}
                                                             }]
                                      )
         print(f"Bought 1 {option_symbol} put option at {order_price}")
