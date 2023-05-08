@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+
 import tdameritrade.auth as td_auth
 import tdameritrade.client as td_client
 import datetime as dt
