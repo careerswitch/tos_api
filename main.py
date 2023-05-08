@@ -1,6 +1,8 @@
 import tdameritrade.auth as td_auth
 import tdameritrade.client as td_client
 import datetime as dt
+# test to see if this works
+
 
 # Enter your TD Ameritrade account credentials
 CLIENT_ID = 'your_client_id'
