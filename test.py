@@ -85,7 +85,7 @@ def refresh_tokens(client_id, refresh_token):
             print(f"An error occurred: {str(e)}")
         # Wait for 25 minutes before refreshing the tokens
         time.sleep(25 * 60)
-        # Stop refreshing tokens and disconnect from database at 11 pm localtime
+        # Stop refreshing tokens and disconnect from database at close of market localtime
         if time.localtime().tm_hour >= 23:
             break
 
