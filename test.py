@@ -74,8 +74,8 @@ def refresh_tokens():
         print(response.json())
         # Wait for 25 minutes before refreshing the tokens
         time.sleep(25 * 60)
-        # Stop refreshing tokens and disconnect from database at 4 pm
-        if time.localtime().tm_hour >= 16:
+        # Stop refreshing tokens and disconnect from database at 4 pm localtime
+        if time.localtime().tm_hour >= 23:
             break
 
 # Call the refresh_tokens() function to start refreshing the tokens
