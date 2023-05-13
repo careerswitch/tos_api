@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
 
+"""
+
+function call:
+client_id = "your_client_id_here"
+refresh_token = "your_refresh_token_here"
+refresh_tokens(client_id, refresh_token)
+
+
+"""
+
 import requests
 import sqlite3
 import time
