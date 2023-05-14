@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 """
-client_id = "your_client_id_here"
-refresh_token = "your_refresh_token_here"
-refresh_tokens(client_id, refresh_token)
+
+use refresh_tokens()
+to call function
 
 """
 
@@ -11,7 +11,17 @@ import requests
 import sqlite3
 import time
 
-def refresh_tokens(client_id, refresh_token):
+
+
+def refresh_tokens():
+    # Prompt the user for the client ID and refresh token
+    client_id = input("Please enter your client ID: ")
+    refresh_token = input("Please enter your refresh token: ")
+    
+    # Rest of the function code that uses client_id and refresh_token
+    # ...
+
+
     # Connect to database
     conn = sqlite3.connect('tokens.db')
     c = conn.cursor()
