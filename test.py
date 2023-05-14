@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 
+"""
+
+use refresh_tokens()
+to call function
+
+"""
+
 import getpass
+import sqlite3
+import time
+import requests
 
 def refresh_tokens():
     # Get user inputs
@@ -75,3 +85,5 @@ def refresh_tokens():
 
     # Close the database connection
     conn.close()
+
+refresh_tokens()
