@@ -1,28 +1,14 @@
-#!/usr/bin/env python3
-
-"""
-
-use refresh_tokens()
-to call function
-
-"""
-
-import requests
-import sqlite3
-import time
 
 
+
+import getpass
 
 def refresh_tokens():
-    # Prompt the user for the client ID and refresh token
-    client_id = input("Please enter your client ID: ")
-    refresh_token = input("Please enter your refresh token: ")
-    
-    # Rest of the function code that uses client_id and refresh_token
-    # ...
+    # Get user inputs
+    client_id = getpass.getpass("Enter your TD Ameritrade client ID: ")
+    refresh_token = getpass.getpass("Enter your TD Ameritrade refresh token: ")
 
-
-    # Connect to database
+    # Connect to the database
     conn = sqlite3.connect('tokens.db')
     c = conn.cursor()
 
@@ -64,13 +50,8 @@ def refresh_tokens():
                 refresh_token = tokens['refresh_token']
                 # Store the new tokens in the database
                 insert_tokens(access_token, refresh_token)
-            # Use the access token to make an API call
-            headers = {
-                'Authorization': 'Bearer ' + access_token
-            }
-            response = requests.get('https://api.tdameritrade.com/v1/accounts', headers=headers)
-            if response.status_code == 401:
-                # If the access token has expired, use the refresh token to get a new access token
+            else:
+                # Use the refresh token to get a new access token
                 url = "https://api.tdameritrade.com/v1/oauth2/token"
                 payload = {
                     "grant_type": "refresh_token",
@@ -81,16 +62,10 @@ def refresh_tokens():
                 response.raise_for_status()
                 tokens = response.json()
                 access_token = tokens['access_token']
-                refresh_token = tokens['refresh_token']
-                # Update the tokens in the database
-                insert_tokens(access_token, refresh_token)
-                # Use the new access token to make an API call
-                headers = {
-                    'Authorization': 'Bearer ' + access_token
-                }
-                response = requests.get('https://api.tdameritrade.com/v1/accounts', headers=headers)
-            response.raise_for_status()
-            print(response.json())
+                # Update the access token in the database
+                c.execute('UPDATE tokens SET access_token = ? WHERE refresh_token = ?', (access_token, refresh_token))
+                conn.commit()
+            print("Access token refreshed successfully")
         except Exception as e:
             print(f"An error occurred: {str(e)}")
         # Wait for 25 minutes before refreshing the tokens
