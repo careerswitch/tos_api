@@ -6,9 +6,14 @@ import sqlite3
 import time
 from datetime import datetime, timezone, timedelta
 import pytz
+import json
 
-client_id = input("Enter your client ID: ")
-refresh_token = input("Enter your refresh token: ")
+
+with open('config.json') as f:
+    config = json.load(f)
+
+client_id = config['client_id']
+refresh_token = config['refresh_token']
 
 DB_NAME = 'tokens.db'
 
