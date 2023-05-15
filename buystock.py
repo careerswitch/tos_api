@@ -1,14 +1,22 @@
 #!/usr/bin/env python3
 
 import requests
+import json
+import get_token
 
-access_token = ""
-account_id = ""
 
-url = f"https://api.tdameritrade.com/v1/accounts/{account_number}/orders"
+# Load the credentials from config.json
+with open('config.json') as f:
+    credentials = json.load(f)
+
+# Extract the required values from the credentials
+ACCOUNT_NUMBER = credentials['account_number']
+
+
+url = f"https://api.tdameritrade.com/v1/accounts/{ACCOUNT_NUMBER}/orders"
 
 headers = {
-    "Authorization": f"Bearer {access_token}"
+    "Authorization": f"Bearer {get_token.get_latest_token()}"
 }
 
 payload = {
