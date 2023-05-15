@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-
-code just for get_token
-
-"""
 import os
 import requests
 import sqlite3
